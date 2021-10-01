@@ -6,7 +6,7 @@ class NetworkServer
 {
    public static void main(String[] args) throws IOException 
    {
-      
+      //connect server to client
       int PortNumber = 9959;      
       Scanner scan = new Scanner(System.in);      
       DataInputStream input;      
@@ -19,44 +19,29 @@ class NetworkServer
       output = new DataOutputStream(socket.getOutputStream());      
       input = new DataInputStream(socket.getInputStream());
       
-      //scam numbers form user
-      System.out.println("Please enter Two Numbers");          
-      int num1 = scanner.nextInt();   
-      int num2 = scanner.nextInt();
       
-      //output numbers to client
-      output.writeInt(num1);
-      output.writeInt(num2);
+      int choice = 0;
+      //Turn server off
+      //boolean end = false;      
       
+      do
+      {
       //get input for operator from client
-      char operator = input.readChar(); 
+      choice = input.readInt(); 
       
-      //do calculations
-      int result = calculate(num1,num2,operator);
-      
-      //Print Result of calculation
-      System.out.println("Result is " + result);   
+      //Switch statement for all the
+      switch (choice) {
+         case 1: //choice = 1;
+            System.out.println("connected 1");
+            break;
+         case 2: //choice = 2;
+            System.out.println("connected 2");
+            break;
+         case 3: //choice = 3;
+            System.out.println("connected 3");
+            break;
+       }
+      }while (choice != 4);
    
     }
-   
-   public static int calculate(int num1, int num2, char sign)
-   {
-      int result = 0;
-      
-      switch (sign) {
-            case '+':   //addition
-                     result = num1 + num2;
-                     break;
-            case '-':   //subtract
-                     result = num1 - num2;
-                     break;
-            case '/':   //divide
-                     result = num1 / num2;
-                     break;
-            case '*':   //multiply
-                     result = num1 * num2;
-                     break;
-            }//end of switch statement
-      return result;
-   }
 }

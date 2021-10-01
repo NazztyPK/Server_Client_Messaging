@@ -16,44 +16,38 @@ class NetworkClient
       output = new DataOutputStream(MyClient.getOutputStream());      
       input = new DataInputStream(MyClient.getInputStream());      
       
-      //scan operator form user
-      System.out.println("Please enter operator");      
-      String operatorString = scanner.nextLine();      
-      char operator = operatorString.charAt(0);
+      //intialize int for Menu input
+      int choice = 0;
+      
+      do
+      {
+      //Print menu for client
+      System.out.println("What would you like to do?");
+      System.out.println("1. Login");
+      System.out.println("2. Logout");    
+      System.out.println("3. Send Message");
+      System.out.println("4. Turn Off Server");
+      
+      String choiceString = scanner.nextLine();      
+      choice = Integer.parseInt(choiceString);
       
       //output operator to server
-      output.writeChar(operator);
+      output.writeInt(choice);
+      }while(choice != 4);
+      
+      if(choice == 4)
+      {
+      System.out.println("Server is Off"); 
+      }
       
       //get input for numbers from server
-      int num1 = input.readInt(); 
-      int num2 = input.readInt(); 
+      //int num1 = input.readInt(); 
+      
       
       //do calculations
-      int result = calculate(num1,num2,operator);
-      
+       
       //Print Result of calculation
-      System.out.println("Result is " + result);
+
       
-   }
-   
-   public static int calculate(int num1, int num2, char sign)
-   {
-      int result = 0;
-      
-      switch (sign) {
-            case '+':   //addition
-                     result = num1 + num2;
-                     break;
-            case '-':   //subtract
-                     result = num1 - num2;
-                     break;
-            case '/':   //divide
-                     result = num1 / num2;
-                     break;
-            case '*':   //multiply
-                     result = num1 * num2;
-                     break;
-            }//end of switch statement
-      return result;
    }
 }
