@@ -20,10 +20,26 @@ class NetworkServer
       input = new DataInputStream(socket.getInputStream());
       
       
+      try {
+      File myObj = new File("shadow.txt");
+      Scanner myReader = new Scanner(myObj);
+      /*while (myReader.hasNextLine()) {
+        String data = myReader.nextLine();
+        System.out.println(data);
+      }*/
+      myReader.close();
+      } catch (FileNotFoundException e) {
+      System.out.println("An error occurred.");
+      e.printStackTrace();
+      }
+      
       int choice = 0;
       //Turn server off
-      //boolean end = false;      
+      boolean loginStatus = false;      
       
+      /************************
+      *** Main Menu Program ***
+      *************************/
       do
       {
       //get input for operator from client
@@ -32,7 +48,21 @@ class NetworkServer
       //Switch statement for all the
       switch (choice) {
          case 1: //choice = 1;
-            System.out.println("connected 1");
+            //System.out.println("connected 1");
+            if(!loginStatus)  //login false
+            {
+               //Send Output to client - 1
+               output.writeUTF("Enter the Username and password"); //send to client - 1
+               
+               //Receive Output from client - 2
+               String userAndPass = input.readUTF();
+                          
+               //split string and put it into array
+               String[] userPassArray = userAndPass.split(" ");
+            }   
+            else
+               
+            
             break;
          case 2: //choice = 2;
             System.out.println("connected 2");
@@ -42,6 +72,7 @@ class NetworkServer
             break;
        }
       }while (choice != 4);
+      /*** End of Main Menu program ***/
    
     }
 }

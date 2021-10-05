@@ -33,12 +33,31 @@ class NetworkClient
       
       //output operator to server
       output.writeInt(choice);
+      
+      //switch statement for different choices
+      switch (choice) {
+         case 1: //choice = 1;
+            
+            //Read input form server - 1
+            String userAndPass = input.readUTF();  //receive input from server - 1
+            System.out.println(userAndPass);       //print input from server - 1  
+            
+            //Output to server - 2
+            userAndPass = scanner.nextLine();   //get input from user
+            output.writeUTF(userAndPass);       //send input to Server - 2            
+            break;
+         case 2: //choice = 2;
+            
+            break;
+         case 3: //choice = 3;
+            
+            break;
+       }
       }while(choice != 4);
       
+      
       if(choice == 4)
-      {
-      System.out.println("Server is Off"); 
-      }
+         System.out.println("Server is Off"); 
       
       //get input for numbers from server
       //int num1 = input.readInt(); 
