@@ -37,14 +37,22 @@ class NetworkClient
       //switch statement for different choices
       switch (choice) {
          case 1: //choice = 1;
-            
-            //Read input form server - 1
-            String userAndPass = input.readUTF();  //receive input from server - 1
-            System.out.println(userAndPass);       //print input from server - 1  
-            
-            //Output to server - 2
-            userAndPass = scanner.nextLine();   //get input from user
-            output.writeUTF(userAndPass);       //send input to Server - 2            
+            boolean loginStatus = input.readBoolean(); //boolean from server about loginstatus
+            if(!loginStatus)
+            {
+               //Read input form server - 1
+               String userAndPass = input.readUTF();  //receive input from server - 1
+               System.out.println(userAndPass);       //print input from server - 1  
+               
+               //Output to server - 2
+               userAndPass = scanner.nextLine();   //get input from user
+               output.writeUTF(userAndPass);       //send input to Server - 2
+               
+               //Read input form server - 3
+               String serverInput = input.readUTF();  //receive input from server - 3
+               System.out.println(serverInput);       //print input from server - 3
+            }
+                     
             break;
          case 2: //choice = 2;
             
