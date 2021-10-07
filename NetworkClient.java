@@ -31,13 +31,17 @@ class NetworkClient
       String choiceString = scanner.nextLine();      
       choice = Integer.parseInt(choiceString);
       
+      boolean loginStatus = false;
+      
+      //input.readBoolean(); //boolean from server about loginstatus
+      
       //output operator to server
       output.writeInt(choice);
       
       //switch statement for different choices
       switch (choice) {
          case 1: //choice = 1;
-            boolean loginStatus = input.readBoolean(); //boolean from server about loginstatus
+            loginStatus = input.readBoolean(); //boolean from server about loginstatus
             if(!loginStatus)
             {
                //Read input form server - 1
@@ -48,6 +52,12 @@ class NetworkClient
                userAndPass = scanner.nextLine();   //get input from user
                output.writeUTF(userAndPass);       //send input to Server - 2
                
+               //Read input form server - 3
+               String serverInput = input.readUTF();  //receive input from server - 3
+               System.out.println(serverInput);       //print input from server - 3
+            }
+            else
+            {
                //Read input form server - 3
                String serverInput = input.readUTF();  //receive input from server - 3
                System.out.println(serverInput);       //print input from server - 3

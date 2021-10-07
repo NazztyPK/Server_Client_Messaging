@@ -54,12 +54,12 @@ class NetworkServer
       switch (choice) {
          case 1: //choice = 1;
             //System.out.println("connected 1");
-            output.writeBoolean(loginStatus);
+            output.writeBoolean(loginStatus); //give login status to client            
+            boolean usernameTest = false;
+            boolean passwordTest = false;
             
             if(!loginStatus)  //login false
             {
-               //output.writeBoolean(loginStatus);
-               
                //Send Output to client - 1
                output.writeUTF("Enter the Username and password"); //send to client - 1
                
@@ -69,26 +69,44 @@ class NetworkServer
                //split string and put it into array
                String[] userPassArrayClient = userAndPass.split(" ");
                
-               //check if username is fine
-               for (String i : textFromShadow) 
+               //check if username and password work
+               for (int i = 0; i<textFromShadow.size()-1; i++) 
                {
-                  if(i.equals(userPassArrayClient[0]))
+                  if(textFromShadow.get(i).equals(userPassArrayClient[0]))
+                     usernameTest = true;
+                  
+                  if(textFromShadow.get(i+1).equals(userPassArrayClient))
+                     passwordTest = true;
+                  
+                  //Username and password work - Login Succesful
+                  if(usernameTest & passwordTest)
                   {
                      loginStatus = true;
+                     
                      //Send Output to client - 3
-                     output.writeUTF("Your Logged In"); //send to client - 3
-                     break;
+                     output.writeUTF("You're Logged In"); //send to client - 3
                   }
-                  else
-                     System.out.println("else");
+                  
+                  //username wrong after going through whole arraylist
+                  else if(!usernameTest && i == textFromShadow.size()-1)
+                  {
+                     //Send Output to client - 3
+                     output.writeUTF("The Username is Wrong!!"); //send to client - 3
+                  }
+                  
+                  //username is right, but password is wrong
+                  else if(usernameTest && !passwordTest)
+                  {
+                     //Send Output to client - 3
+                     output.writeUTF("The Password is Wrong!!"); //send to client - 3
+                  }
+
                }
                
             }// end of if for log in status
-            else if (loginStatus) //login true
+            else //if (loginStatus) //login true
             {
                output.writeUTF("Already Logged in"); //send to client - 1
-               output.writeBoolean(loginStatus);
-               break;
             }
             
             break;
